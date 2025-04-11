@@ -49,3 +49,33 @@ button {
 button:hover {
   background-color: #1565c0;
 }
+input[type="text"] {
+  padding: 10px;
+  border: 2px solid #00aaff;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 200px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #0077cc;
+  box-shadow: 0 0 5px #00aaff;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #00aaff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0077cc;
+}
