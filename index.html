@@ -4,20 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Al Yamama Vision Centre</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 50px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    h1 {
+      color: #00796b;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: block;
+      margin: 10px auto;
+      padding: 12px 25px;
+      font-size: 16px;
+      background-color: #009688;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      width: 200px;
+      transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #004d40;
+    }
+    .btn-forgot {
+      background-color: #ef5350;
+    }
+    .btn-forgot:hover {
+      background-color: #b71c1c;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1 class="title">Welcome to Al Yamama Vision Centre</h1>
-    
-    <div class="buttons">
-      <a href="register.html" class="btn register">Register</a>
-      
-      <div class="login-group">
-        <a href="login.html" class="btn login">Login</a>
-        <a href="forgot.html" class="btn forgot">Forgot Password?</a>
-      </div>
-    </div>
+    <h1>Welcome to Al Yamama Vision Centre</h1>
+    <a class="btn" href="register.html">Register</a>
+    <a class="btn" href="login.html">Login</a>
+    <a class="btn btn-forgot" href="forgot.html">Forgot Password</a>
   </div>
 </body>
 </html>
