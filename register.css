@@ -49,7 +49,7 @@ button {
 button:hover {
   background-color: #1565c0;
 }
-input[type="text"] {
+input[type="tel"] {
   padding: 10px;
   border: 2px solid #00aaff;
   border-radius: 8px;
@@ -59,7 +59,7 @@ input[type="text"] {
   transition: 0.3s;
 }
 
-input[type="text"]:focus {
+input[type="tel"]:focus {
   border-color: #0077cc;
   box-shadow: 0 0 5px #00aaff;
 }
