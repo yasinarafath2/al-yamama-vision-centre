@@ -1,126 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - Al Yamama Vision Centre</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Al Yamama Vision Centre - Register</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css" />
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
-    }
-    header {
-      background: #006699;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    .schedule-info {
-      background: #e0f7fa;
-      padding: 15px;
-      margin: 20px;
-      border-left: 5px solid #00796b;
-      font-size: 16px;
-      max-width: 600px;
-    }
-    .doctor-card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      max-width: 500px;
-    }
-    .doctor-img {
-      width: 100px;
-      border-radius: 50%;
-    }
-    .doctor-info {
-      margin-left: 20px;
-    }
-    .doctor {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e6f2ff, #ffffff);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      margin-bottom: 10px;
+      justify-content: center;
+      height: 100vh;
     }
-    .slider {
-      background: #003366;
-      color: white;
-      overflow: hidden;
-      white-space: nowrap;
-      position: fixed;
-      bottom: 0;
+    h1 {
+      color: #005580;
+      margin-bottom: 20px;
+    }
+    .container {
+      background-color: #f9f9f9;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
       width: 100%;
-      padding: 10px 0;
+      max-width: 400px;
     }
-    .slider-text {
-      display: inline-block;
-      padding-left: 100%;
-      animation: slide 15s linear infinite;
+    .form-group {
+      margin-bottom: 15px;
     }
-    @keyframes slide {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+    .btn-primary {
+      background-color: #007acc;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #005f99;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to the Dashboard</h1>
-  </header>
-
-  <div class="schedule-info">
-    <strong>Doctor Availability:</strong> 12:00 PM – 5:00 PM<br>
-    <strong>Lunch Break:</strong> 3:00 PM – 4:00 PM
+  <h1>Register</h1>
+  <div class="container">
+    <div class="form-group">
+      <input type="tel" id="phone" placeholder="Enter phone number" />
+    </div>
+    <div class="form-group" id="otp-section" style="display:none;">
+      <input type="text" id="otp" placeholder="Enter verification code" />
+    </div>
+    <div class="form-group" id="password-section" style="display:none;">
+      <input type="password" id="password" placeholder="Create password" />
+    </div>
+    <button class="btn btn-primary" id="nextBtn">Next</button>
   </div>
 
-  <div id="doctor-list"></div>
-
-  <div class="slider">
-    <div class="slider-text">Al Yamama Vision Centre - Providing the Best Eye Care Services</div>
-  </div>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
   <script>
-    const doctorContainer = document.getElementById('doctor-list');
+    const phoneInput = document.querySelector("#phone");
+    const iti = window.intlTelInput(phoneInput, {
+      initialCountry: "auto",
+      preferredCountries: ["iq", "ir", "ae"],
+      geoIpLookup: callback => {
+        fetch("https://ipinfo.io/json?token=<your_token>")
+          .then(resp => resp.json())
+          .then(data => callback(data.country))
+          .catch(() => callback("us"));
+      },
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+    });
 
-    async function loadDoctors() {
-      const res = await fetch('http://localhost:3000/api/doctors');
-      const doctors = await res.json();
+    const nextBtn = document.getElementById("nextBtn");
+    const otpSection = document.getElementById("otp-section");
+    const passwordSection = document.getElementById("password-section");
 
-      doctorContainer.innerHTML = '';
+    let step = 1;
 
-      doctors.forEach(doc => {
-        const card = document.createElement('div');
-        card.className = 'doctor-card';
-        card.innerHTML = `
-          <div class="doctor">
-            <img class="doctor-img" src="${doc.image}" alt="${doc.name}">
-            <div class="doctor-info">
-              <h3>${doc.name}</h3>
-              <p>${doc.specialty}</p>
-              <label>Start Time: <input type="time" value="${doc.startTime}" onchange="updateTime(${doc.id}, this.value, null)"></label><br>
-              <label>End Time: <input type="time" value="${doc.endTime}" onchange="updateTime(${doc.id}, null, this.value)"></label>
-            </div>
-          </div>
-        `;
-        doctorContainer.appendChild(card);
-      });
-    }
-
-    async function updateTime(id, startTime, endTime) {
-      const res = await fetch(`http://localhost:3000/api/doctors/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ startTime, endTime })
-      });
-
-      if (res.ok) {
-        console.log('Updated successfully');
+    nextBtn.addEventListener("click", () => {
+      if (step === 1) {
+        const fullPhone = iti.getNumber();
+        alert("Verification code sent to " + fullPhone);
+        otpSection.style.display = "block";
+        step = 2;
+      } else if (step === 2) {
+        const otp = document.getElementById("otp").value;
+        if (otp === "1234") {
+          passwordSection.style.display = "block";
+          step = 3;
+        } else {
+          alert("Invalid OTP");
+        }
+      } else if (step === 3) {
+        const password = document.getElementById("password").value;
+        alert("Registration complete! Password: " + password);
       }
-    }
-
-    window.onload = loadDoctors;
+    });
   </script>
 </body>
 </html>
