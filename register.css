@@ -24,18 +24,27 @@ h2 {
   margin-bottom: 25px;
 }
 
-input[type="tel"] {
+input[type="tel"],
+input[type="text"],
+input[type="password"] {
   width: 100%;
   padding: 12px 15px;
   margin: 10px 0;
-  border: 1px solid #90caf9;
+  border: 2px solid #00aaff;
   border-radius: 10px;
   font-size: 16px;
+  outline: none;
+  transition: 0.3s;
   box-sizing: border-box;
 }
 
+input:focus {
+  border-color: #0077cc;
+  box-shadow: 0 0 5px #00aaff;
+}
+
 button {
-  background-color: #1976d2;
+  background-color: #00aaff;
   color: white;
   padding: 12px 20px;
   border: none;
@@ -44,38 +53,15 @@ button {
   font-size: 16px;
   margin-top: 10px;
   transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #1565c0;
-}
-input[type="tel"] {
-  padding: 10px;
-  border: 2px solid #00aaff;
-  border-radius: 8px;
-  font-size: 16px;
-  width: 200px;
-  outline: none;
-  transition: 0.3s;
-}
-
-input[type="tel"]:focus {
-  border-color: #0077cc;
-  box-shadow: 0 0 5px #00aaff;
-}
-
-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #00aaff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
+  width: 100%;
 }
 
 button:hover {
   background-color: #0077cc;
+}
+
+#status {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
 }
