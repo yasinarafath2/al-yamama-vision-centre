@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register - Al Yamama Vision Centre</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2 class="title">Register</h2>
+    <form id="registerForm">
+      <input type="tel" id="phone" placeholder="Enter phone number" required /><br />
+      <button type="button" onclick="sendCode()">Send Code</button><br /><br />
+
+      <div id="verifySection" style="display: none;">
+        <input type="text" id="code" placeholder="Enter verification code" required /><br />
+        <input type="password" id="password" placeholder="Set your password" required /><br />
+        <button type="submit">Register</button>
+      </div>
+    </form>
+    <p id="status"></p>
+  </div>
+
+  <script>
+    function sendCode() {
+      const phone = document.getElementById('phone').value;
+      // Normally send API request to backend
+      document.getElementById('verifySection').style.display = 'block';
+      document.getElementById('status').innerText = 'Verification code sent to ' + phone;
+    }
+
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const phone = document.getElementById('phone').value;
+      const code = document.getElementById('code').value;
+      const password = document.getElementById('password').value;
+      document.getElementById('status').innerText = 'Registration complete for ' + phone;
+    });
+  </script>
+</body>
+</html>
