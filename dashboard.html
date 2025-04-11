@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Al Yamama Vision Centre</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+    }
+    header {
+      background: #006699;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    .schedule-info {
+      background: #e0f7fa;
+      padding: 15px;
+      margin: 20px;
+      border-left: 5px solid #00796b;
+      font-size: 16px;
+      max-width: 600px;
+    }
+    .doctor-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 500px;
+    }
+    .doctor-img {
+      width: 100px;
+      border-radius: 50%;
+    }
+    .doctor-info {
+      margin-left: 20px;
+    }
+    .doctor {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .slider {
+      background: #003366;
+      color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 10px 0;
+    }
+    .slider-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: slide 15s linear infinite;
+    }
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to the Dashboard</h1>
+  </header>
+
+  <div class="schedule-info">
+    <strong>Doctor Availability:</strong> 12:00 PM – 5:00 PM<br>
+    <strong>Lunch Break:</strong> 3:00 PM – 4:00 PM
+  </div>
+
+  <div id="doctor-list"></div>
+
+  <div class="slider">
+    <div class="slider-text">Al Yamama Vision Centre - Providing the Best Eye Care Services</div>
+  </div>
+
+  <script>
+    const doctorContainer = document.getElementById('doctor-list');
+
+    async function loadDoctors() {
+      const res = await fetch('http://localhost:3000/api/doctors');
+      const doctors = await res.json();
+
+      doctorContainer.innerHTML = '';
+
+      doctors.forEach(doc => {
+        const card = document.createElement('div');
+        card.className = 'doctor-card';
+        card.innerHTML = `
+          <div class="doctor">
+            <img class="doctor-img" src="${doc.image}" alt="${doc.name}">
+            <div class="doctor-info">
+              <h3>${doc.name}</h3>
+              <p>${doc.specialty}</p>
+              <label>Start Time: <input type="time" value="${doc.startTime}" onchange="updateTime(${doc.id}, this.value, null)"></label><br>
+              <label>End Time: <input type="time" value="${doc.endTime}" onchange="updateTime(${doc.id}, null, this.value)"></label>
+            </div>
+          </div>
+        `;
+        doctorContainer.appendChild(card);
+      });
+    }
+
+    async function updateTime(id, startTime, endTime) {
+      const res = await fetch(`http://localhost:3000/api/doctors/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ startTime, endTime })
+      });
+
+      if (res.ok) {
+        console.log('Updated successfully');
+      }
+    }
+
+    window.onload = loadDoctors;
+  </script>
+</body>
+</html>
