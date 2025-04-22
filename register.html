@@ -38,5 +38,37 @@
       document.getElementById('status').innerText = 'Registration complete for ' + phone;
     });
   </script>
+  <style>
+  .scrolling-banner {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(to right, #004466, #006680);
+    color: #fff;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .scrolling-banner span {
+    display: inline-block;
+    padding-left: 100%;
+    white-space: nowrap;
+    font-size: 1.1em;
+    font-weight: bold;
+    animation: scroll-text 12s linear infinite;
+  }
+
+  @keyframes scroll-text {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+</style>
 </body>
 </html>
