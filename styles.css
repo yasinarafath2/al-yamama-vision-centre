@@ -1,0 +1,48 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #121212;
+  color: #ffffff;
+  padding: 20px;
+}
+
+.doctor-form {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+input, button {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+}
+
+button {
+  background-color: #00bcd4;
+  color: white;
+  cursor: pointer;
+}
+
+.profile-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.profile-card {
+  background: #1e1e1e;
+  border-radius: 10px;
+  padding: 15px;
+  width: 200px;
+  text-align: center;
+}
+
+.profile-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
