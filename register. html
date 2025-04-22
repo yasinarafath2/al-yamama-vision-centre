@@ -14,5 +14,8 @@
       <button type="submit">Send Code</button>
     </form>
   </div>
+<div class="scrolling-banner">
+  <span>مركز اليمامة للرؤية</span>
+</div>
 </body>
 </html>
