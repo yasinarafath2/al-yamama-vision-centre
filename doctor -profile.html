@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Profiles - Al Yamama Vision Centre</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="doctor-form">
+    <h2>Add Doctor Profile</h2>
+    <form id="doctorForm">
+      <input type="text" placeholder="Doctor's Name" id="name" required>
+      <input type="text" placeholder="Specialist in..." id="specialty" required>
+      <input type="text" placeholder="Available Time" id="time" required>
+      <input type="file" id="photo" accept="image/*" required>
+      <button type="submit">Add Profile</button>
+    </form>
+  </div>
+
+  <div class="profile-list" id="profileList"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
