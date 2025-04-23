@@ -1,45 +1,41 @@
 const express = require('express');
+const multer = require('multer');
 const cors = require('cors');
+const path = require('path');
 const app = express();
-const PORT = 3000;
 
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-let doctors = [
-  {
-    id: 1,
-    name: 'Dr. Ayesha Rahman',
-    specialty: 'Ophthalmologist',
-    image: 'https://via.placeholder.com/100',
-    startTime: '12:00',
-    endTime: '17:00'
+// Upload ফোল্ডার
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
   },
-  {
-    id: 2,
-    name: 'Dr. Omar Hossain',
-    specialty: 'Eye Surgeon',
-    image: 'https://via.placeholder.com/100',
-    startTime: '12:00',
-    endTime: '17:00'
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
   }
-];
+});
+const upload = multer({ storage: storage });
 
-app.get('/api/doctors', (req, res) => {
-  res.json(doctors);
+app.use('/uploads', express.static('uploads'));
+
+app.post('/add-doctor', upload.single('image'), (req, res) => {
+  const { name, specialty } = req.body;
+  const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
+
+  if (!name || !specialty || !imagePath) {
+    return res.status(400).json({ message: 'সব তথ্য পূরণ করুন' });
+  }
+
+  res.json({
+    message: 'ডক্টর সফলভাবে যোগ হয়েছে!',
+    data: { name, specialty, image: imagePath }
+  });
 });
 
-app.put('/api/doctors/:id', (req, res) => {
-  const doctorId = parseInt(req.params.id);
-  const { startTime, endTime } = req.body;
-
-  doctors = doctors.map(doc =>
-    doc.id === doctorId ? { ...doc, startTime: startTime || doc.startTime, endTime: endTime || doc.endTime } : doc
-  );
-
-  res.json({ message: 'Schedule updated successfully' });
-});
-
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
