@@ -73,9 +73,9 @@
 <body>
   <div class="dashboard-container">
     <div class="profile">
-      <img src="uploads/uploads/doctor1.jpg" alt="Doctor Photo">
-      <h2>ডা. ইলিয়াস হোসেন</h2>
-      <p>চোখের সার্জন (Retina Specialist)</p>
+      <img src="" alt="Doctor Photo" id="doctor-photo">
+      <h2 id="doctor-name">লোড হচ্ছে...</h2>
+      <p id="doctor-specialty"></p>
     </div>
 
     <div class="actions">
@@ -85,15 +85,14 @@
 
     <div class="appointments">
       <h3>আজকের অ্যাপয়েন্টমেন্ট সময়সূচি</h3>
-      <ul>
-        <li>10:00 AM - আব্দুল্লাহ</li>
-        <li>11:30 AM - রাবেয়া খাতুন</li>
-        <li>1:00 PM - হোসেন মিয়া</li>
+      <ul id="appointments-list">
+        <!-- Appointment list will load here -->
       </ul>
     </div>
   </div>
 
   <script>
+    // প্রোফাইল এডিট এবং লগআউট ফাংশন
     function editProfile() {
       alert("এখানে প্রোফাইল এডিট ফর্ম আসবে!");
     }
@@ -101,6 +100,29 @@
     function logout() {
       window.location.href = "login.html";
     }
+
+    // ডেটা লোড
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("/api/doctor/1")
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("doctor-photo").src = data.photo;
+          document.getElementById("doctor-name").textContent = data.name;
+          document.getElementById("doctor-specialty").textContent = data.specialty;
+
+          const appointmentsList = document.getElementById("appointments-list");
+          appointmentsList.innerHTML = "";
+
+          data.appointments.forEach(item => {
+            const li = document.createElement("li");
+            li.textContent = item;
+            appointmentsList.appendChild(li);
+          });
+        })
+        .catch(error => {
+          console.error("ডেটা লোড করতে সমস্যা হয়েছে:", error);
+        });
+    });
   </script>
 </body>
 </html>
