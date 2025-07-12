@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Dashboard | Al Yamama Vision Centre</title>
+  <link rel="stylesheet" href="doctor-dashboard.css">
+  <style>
+    body {
+      background: #121212;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .dashboard-container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    .profile {
+      text-align: center;
+    }
+    .profile img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid #00bfff;
+      margin-bottom: 10px;
+    }
+    .profile h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .profile p {
+      color: #ccc;
+    }
+    .actions {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .actions button {
+      padding: 10px 20px;
+      background-color: #00bfff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .appointments {
+      margin-top: 30px;
+    }
+    .appointments h3 {
+      border-bottom: 2px solid #00bfff;
+      padding-bottom: 10px;
+    }
+    .appointments ul {
+      list-style: none;
+      padding: 0;
+    }
+    .appointments li {
+      background-color: #2c2c2c;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <div class="profile">
+      <img src="uploads/uploads/doctor1.jpg" alt="Doctor Photo">
+      <h2>ডা. ইলিয়াস হোসেন</h2>
+      <p>চোখের সার্জন (Retina Specialist)</p>
+    </div>
+
+    <div class="actions">
+      <button onclick="editProfile()">প্রোফাইল এডিট</button>
+      <button onclick="logout()">লগআউট</button>
+    </div>
+
+    <div class="appointments">
+      <h3>আজকের অ্যাপয়েন্টমেন্ট সময়সূচি</h3>
+      <ul>
+        <li>10:00 AM - আব্দুল্লাহ</li>
+        <li>11:30 AM - রাবেয়া খাতুন</li>
+        <li>1:00 PM - হোসেন মিয়া</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function editProfile() {
+      alert("এখানে প্রোফাইল এডিট ফর্ম আসবে!");
+    }
+
+    function logout() {
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>
