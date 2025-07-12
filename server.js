@@ -39,3 +39,28 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+// Step 1: Dummy doctor data
+const doctors = {
+  "1": {
+    name: "ডা. ইলিয়াস হোসেন",
+    specialty: "চোখের সার্জন (Retina Specialist)",
+    photo: "uploads/uploads/doctor1.jpg",
+    appointments: [
+      "10:00 AM - আব্দুল্লাহ",
+      "11:30 AM - রাবেয়া খাতুন",
+      "1:00 PM - হোসেন মিয়া"
+    ]
+  }
+};
+
+// Step 2: এই লাইনটা server.js এর নিচে বসাও
+app.get('/api/doctor/:id', (req, res) => {
+  const doctorId = req.params.id;
+  const doctor = doctors[doctorId];
+
+  if (doctor) {
+    res.json(doctor); // ডাটা পাঠানো
+  } else {
+    res.status(404).json({ error: "Doctor not found" });
+  }
+});
